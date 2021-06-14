@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import react from 'react'
+import Functions from './components/Functions'
+import Result from './components/Result'
+import MathOperations from './components/MathOperations'
+import Numbers from './components/Numbers'
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+const App = () => {
+
+    const clickHandlerFunction = text => {
+        console.log("button.clicHandler", text)
+    }
+    console.log("render Calc")
+    return (
+        <main className='react-calculator'>
+
+            <Result value={undefined} />
+
+            <Numbers
+                onClickNumber={number =>{
+
+                    console.log("Click en number", number)
+                }}
+            />
+
+            <Functions
+                onContentClear={() =>
+                    console.log("Clear")
+                }
+                onDelete={() =>
+                    console.log("Delete")
+                }
+            />
+
+            <MathOperations
+                onClickOperation={operation =>
+                    console.log("operation", operation)
+                }
+                onClickEqual={equal =>
+                    console.log("Equal", equal)
+                }
+            />
+
+
+        </main>)
+
 }
 
-export default App;
+export default App
