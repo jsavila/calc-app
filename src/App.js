@@ -1,4 +1,4 @@
-import react from 'react'
+import React, { useState } from 'react'
 import Functions from './components/Functions'
 import Result from './components/Result'
 import MathOperations from './components/MathOperations'
@@ -8,39 +8,51 @@ import './App.css'
 
 
 const App = () => {
+    // arrayTextoFuncionModificaTexto => ["", funcion]
+    //1er posición: valor (que inicialmente es el valor por defecto
+    //2da posición: función que me va a permitir modificar el valor por defecto
+    // [xxxx], [setxxxx]
+    const [stack, setStack] = useState("")
 
-    const clickHandlerFunction = text => {
-        console.log("button.clicHandler", text)
-    }
     console.log("render Calc")
     return (
         <main className='react-calculator'>
 
-            <Result value={undefined} />
+            <Result value={stack} />
 
             <Numbers
-                onClickNumber={number =>{
+                onClickNumber={number => {
 
                     console.log("Click en number", number)
+
+                    setStack(`${stack}${number}`)
                 }}
             />
 
             <Functions
-                onContentClear={() =>
+                onContentClear={() => {
                     console.log("Clear")
-                }
-                onDelete={() =>
-                    console.log("Delete")
-                }
+                    setStack("")
+                }}
+                onDelete={() => {
+                    if (stack.length > 0){
+                        const newStack = stack.substring(0, stack.length - 1)
+                        console.log("Delete", newStack)
+                        setStack(newStack)
+                    }
+                }}
             />
 
             <MathOperations
-                onClickOperation={operation =>
+                onClickOperation={operation => {
                     console.log("operation", operation)
-                }
-                onClickEqual={equal =>
+                    setStack(`${stack}${operation}`)
+                }}
+                onClickEqual={equal => {
                     console.log("Equal", equal)
-                }
+                    setStack(`${stack}${equal}`)
+                }}
+
             />
 
 
